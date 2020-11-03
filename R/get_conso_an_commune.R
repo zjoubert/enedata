@@ -2,23 +2,28 @@
 #' d'une commune
 #'
 #' @param annee entier, annee a recuperer (si missing, toutes)
+#' @param commune character
 #' @param verbose booleen qui indique si on print l'url
 #' @param with_coord booleen, est ce qu'on doit récupérer les coordonnées
 #'
 #' @return data frame avec en ligne les données de consommation par commune x segment de clientèle
 #' @export
+#' @importFrom asserthat assert_that
 #' @examples
 #' get_conso_an_commune(annee = 2016, commune = 'Valenciennes')
 #' get_conso_an_commune( commune = 'paris')
 
 get_conso_an_commune <- function(annee,
-                                 commune ,
+                                 commune,
                                  with_coord = FALSE,
                                  verbose = FALSE){
   
   
   ##check des arguments : TODO
-  
+  assertthat::assert_that(is.numeric(annee))
+  assertthat::assert_that(is.character(commune))
+  assertthat::assert_that(with_coord==FALSE | with_coord==TRUE)
+  assertthat::assert_that(verbose==FALSE | verbose==TRUE)
   
   ## TODO mise en forme de la commune ('paris' doit passer) 
   commune <- clean_name(commune)
